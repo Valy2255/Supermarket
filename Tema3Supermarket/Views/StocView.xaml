@@ -1,0 +1,27 @@
+﻿<Window x:Class="Tema3Supermarket.Views.StocView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tema3Supermarket.Views"
+        mc:Ignorable="d"
+        Title="StocView" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <DataGrid ItemsSource="{Binding Stocuri}" SelectedItem="{Binding StocSelectat}" AutoGenerateColumns="False" CanUserAddRows="False" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Produs" Binding="{Binding Produs.Nume}"/>
+                    <DataGridTextColumn Header="Cantitate" Binding="{Binding Cantitate}"/>
+                    <DataGridTextColumn Header="Unitate de măsură" Binding="{Binding UnitateMasura}"/>
+                    <DataGridTextColumn Header="Data aprovizionării" Binding="{Binding DataAprovizionare}"/>
+                    <DataGridTextColumn Header="Data expirării" Binding="{Binding DataExpirare}"/>
+                    <DataGridTextColumn Header="Preț de achiziție" Binding="{Binding PretAchizitie}"/>
+                    <DataGridTextColumn Header="Preț de vânzare" Binding="{Binding PretVanzare}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Adaugă Stoc" Command="{Binding AddStocCommand}" Margin="10"/>
+            <Button Content="Actualizează Stoc" Command="{Binding UpdateStocCommand}" Margin="10"/>
+            <Button Content="Șterge Stoc" Command="{Binding DeleteStocCommand}" Margin="10"/>
+        </StackPanel>
+    </Grid>
+</Window>

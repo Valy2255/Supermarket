@@ -1,0 +1,49 @@
+﻿<Window x:Class="Tema3Supermarket.Views.BonCasaView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tema3Supermarket.Views"
+        mc:Ignorable="d"
+        Title="BonCasaView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="10">
+            <TextBox Width="200" Margin="0,0,10,0"  Text="{Binding CriteriuCautare}" />
+            <Button Content="Caută" Command="{Binding CautareProduseCommand}" />
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Produse}" SelectedItem="{Binding ProdusSelectat}" AutoGenerateColumns="False" CanUserAddRows="False" Margin="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nume" Binding="{Binding Nume}"/>
+                <DataGridTextColumn Header="Cod de bare" Binding="{Binding CodBare}"/>
+                <DataGridTextColumn Header="Categorie" Binding="{Binding Categorie.Nume}"/>
+                <DataGridTextColumn Header="Producator" Binding="{Binding Producator.Nume}"/>
+                <DataGridTextColumn Header="Preț de vânzare" Binding="{Binding PretVanzare}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Row="1" Grid.Column="1" Content="Adaugă pe bon" Command="{Binding AdaugaProdusPeBonCommand}" Margin="10"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="10">
+            <DataGrid ItemsSource="{Binding ProduseBon}" AutoGenerateColumns="False" CanUserAddRows="False" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Produs" Binding="{Binding Produs.Nume}"/>
+                    <DataGridTextColumn Header="Cantitate" Binding="{Binding Cantitate}"/>
+                    <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock Text="Total:" FontWeight="Bold" Margin="10"/>
+            <TextBlock Text="{Binding TotalBon}" FontWeight="Bold" Margin="10"/>
+            <Button Content="Emite Bon" Command="{Binding EmitereBonCommand}" Margin="10"/>
+        </StackPanel>
+    </Grid>
+</Window>

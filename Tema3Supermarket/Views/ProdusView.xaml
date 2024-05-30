@@ -1,0 +1,24 @@
+﻿<Window x:Class="Tema3Supermarket.Views.ProdusView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tema3Supermarket.Views"
+        mc:Ignorable="d"
+        Title="Produse" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <DataGrid ItemsSource="{Binding Produse}" SelectedItem="{Binding ProdusSelectat}" AutoGenerateColumns="False" CanUserAddRows="False" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nume" Binding="{Binding Nume}"/>
+                    <DataGridTextColumn Header="Cod de bare" Binding="{Binding CodBare}"/>
+                    <DataGridTextColumn Header="Categorie" Binding="{Binding Categorie.Nume}"/>
+                    <DataGridTextColumn Header="Producator" Binding="{Binding Producator.Nume}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Adaugă Produs" Command="{Binding AddProdusCommand}" Margin="10"/>
+            <Button Content="Actualizează Produs" Command="{Binding UpdateProdusCommand}" Margin="10"/>
+            <Button Content="Șterge Produs" Command="{Binding DeleteProdusCommand}" Margin="10"/>
+        </StackPanel>
+    </Grid>
+</Window>

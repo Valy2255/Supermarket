@@ -1,0 +1,171 @@
+﻿<Window x:Class="Tema3Supermarket.Views.AdminView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tema3Supermarket.Views"
+        mc:Ignorable="d"
+        Title="AdminView" Height="800" Width="800">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" RenderTransformOrigin="0.5,0.5">
+            <ScrollViewer.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.26"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ScrollViewer.RenderTransform>
+            <StackPanel Margin="10">
+                <!-- Vizualizare Stocuri -->
+                <TextBlock Text="Vizualizare Stocuri" FontWeight="Bold" Margin="10" TextAlignment="Center"/>
+                <Button Content="Vizualizare Stocuri" Command="{Binding VizualizareStocuriCommand}" Margin="5"/>
+                <DataGrid ItemsSource="{Binding Stocuri}" AutoGenerateColumns="False" SelectedItem="{Binding StocSelectat}" Margin="5" Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Produs" Binding="{Binding Produs.Nume}"/>
+                        <DataGridTextColumn Header="Cantitate" Binding="{Binding Cantitate}"/>
+                        <DataGridTextColumn Header="Unitate de Măsură" Binding="{Binding UnitateMasura}"/>
+                        <DataGridTextColumn Header="Data Aprovizionare" Binding="{Binding DataAprovizionare}"/>
+                        <DataGridTextColumn Header="Data Expirare" Binding="{Binding DataExpirare}"/>
+                        <DataGridTextColumn Header="Preț Achiziție" Binding="{Binding PretAchizitie}"/>
+                        <DataGridTextColumn Header="Preț Vânzare" Binding="{Binding PretVanzare}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <ComboBox ItemsSource="{Binding Utilizatori}"
+                          DisplayMemberPath="Nume"
+                          SelectedItem="{Binding UtilizatorSelectat}"
+                          Margin="5"/>
+                <DatePicker SelectedDate="{Binding LunaSelectata}"
+                            DisplayDateStart="2020-01-01"
+                            DisplayDateEnd="{Binding CurrentDate, Mode=OneWay}"
+                            Margin="5"/>
+                <Button Content="Afișează Vânzări Utilizator"
+                        Command="{Binding VizualizareVanzariUtilizatorCommand}"
+                        Margin="5"/>
+                <ListView ItemsSource="{Binding VanzariZilnice}" Margin="5">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Ziua" DisplayMemberBinding="{Binding Ziua}"/>
+                            <GridViewColumn Header="Total Vânzări" DisplayMemberBinding="{Binding Total}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <!-- Afișarea Bonului Maxim pe Zi -->
+                <DatePicker SelectedDate="{Binding DataSelectata}"
+                            DisplayDateStart="2020-01-01"
+                            DisplayDateEnd="{Binding CurrentDate, Mode=OneWay}"
+                            Margin="5"/>
+                <Button Content="Afișează Bonul Maxim al Zilei"
+                        Command="{Binding AfișareBonMaximZiCommand}"
+                        Margin="5"/>
+                <TextBlock Text="{Binding BonSelectat.SumaIncasata, StringFormat='Suma Maximă: {0:C}'}"
+                           Margin="5"/>
+                <TextBlock Text="{Binding BonSelectat.DataEliberare, StringFormat='Data: {0:dd/MM/yyyy}'}"
+                           Margin="5"/>
+
+
+                <!-- Restul interfeței existente -->
+                <TextBlock Text="Selectati Producator pentru listare " Margin="5"/>
+                <ComboBox ItemsSource="{Binding Producatori}" SelectedItem="{Binding ProducatorSelectat}" DisplayMemberPath="Nume" Margin="5"/>
+                <Button Content="Listare Produse pe Producator" Command="{Binding ListareProduseProducatorCommand}" Margin="5"/>
+
+                <!-- ComboBox pentru Categorii pentru Listare Produse -->
+                <TextBlock Text="Selectați Categoria pentru Listare" Margin="5"/>
+                <ComboBox ItemsSource="{Binding Categorii}" SelectedItem="{Binding CategorieSelectata}" DisplayMemberPath="Nume" Margin="5"/>
+                <Button Content="Listare Produse pe Categorii" Command="{Binding ListareProdusePeCategoriiCommand}" Margin="5"/>
+
+
+
+
+                <!-- DataGrid pentru Produse -->
+                <DataGrid ItemsSource="{Binding Produse}" AutoGenerateColumns="False" SelectedItem="{Binding ProdusSelectat}" Margin="5">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nume" Binding="{Binding Nume}"/>
+                        <DataGridTextColumn Header="Cod de bare" Binding="{Binding CodBare}"/>
+                        <DataGridTextColumn Header="Categorie" Binding="{Binding Categorie.Nume}"/>
+                        <DataGridTextColumn Header="Producator" Binding="{Binding Producator.Nume}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Calculare Valoare Categorii -->
+                <Button Content="Calculează Valoare Categorii" Command="{Binding CalculeazaValoareCategoriiCommand}" Margin="5"/>
+                <ListBox ItemsSource="{Binding ValoareCategorii}" Margin="5">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Categorie}" />
+                                <TextBlock Text="{Binding Valoare}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <!-- Titlu Adăugare Produs -->
+                <TextBlock Text="ADĂUGARE PRODUS" FontSize="16" FontWeight="Bold" Margin="10" TextAlignment="Center"/>
+
+                <!-- Form pentru Adăugare Produs -->
+                <TextBlock Text="Nume Produs" Margin="5"/>
+                <TextBox Text="{Binding NumeProdus}" Margin="5"/>
+
+                <TextBlock Text="Cod de Bare Produs" Margin="5"/>
+                <TextBox Text="{Binding CodBareProdus}" Margin="5"/>
+
+                <TextBlock Text="Selectați Categoria" Margin="5"/>
+                <ComboBox ItemsSource="{Binding Categorii}" SelectedItem="{Binding CategorieSelectata}" DisplayMemberPath="Nume" Margin="5"/>
+
+                <TextBlock Text="Selectați Producatorul" Margin="5"/>
+                <ComboBox ItemsSource="{Binding Producatori}" SelectedItem="{Binding ProducatorSelectat}" DisplayMemberPath="Nume" Margin="5"/>
+
+                <Button Content="Adaugă Produs" Command="{Binding AdaugaProdusCommand}" Margin="5"/>
+
+                <!-- Actualizare și Ștergere Produs -->
+                <Button Content="Actualizează Produs" Command="{Binding ActualizeazaProdusCommand}" Margin="5"/>
+                <Button Content="Șterge Produs" Command="{Binding StergeProdusCommand}" Margin="5"/>
+
+                <!-- Titlu Adăugare/Actualizare Stoc -->
+                <TextBlock Text="GESTIONARE STOCURI" FontSize="16" FontWeight="Bold" Margin="10" TextAlignment="Center"/>
+
+                <!-- Form pentru Adăugare/Actualizare Stoc -->
+                <TextBlock Text="Selectați Produsul" Margin="5"/>
+                <ComboBox ItemsSource="{Binding Produse}" SelectedItem="{Binding ProdusSelectat}" DisplayMemberPath="Nume" Margin="5"/>
+
+                <TextBlock Text="Cantitate" Margin="5"/>
+                <TextBox Text="{Binding CantitateStoc}" Margin="5"/>
+
+                <TextBlock Text="Unitate de Măsură" Margin="5"/>
+                <TextBox Text="{Binding UnitateMasuraStoc}" Margin="5"/>
+
+                <TextBlock Text="Data Aprovizionare" Margin="5"/>
+                <DatePicker SelectedDate="{Binding DataAprovizionareStoc}" Margin="5"/>
+
+                <TextBlock Text="Data Expirare" Margin="5"/>
+                <DatePicker SelectedDate="{Binding DataExpirareStoc}" Margin="5"/>
+
+                <TextBlock Text="Preț Achiziție" Margin="5"/>
+                <TextBox Text="{Binding PretAchizitieStoc}" Margin="5"/>
+
+                <TextBlock Text="Preț Vânzare (calculat automat)" Margin="5"/>
+                <TextBox Text="{Binding PretVanzareStoc}" IsReadOnly="True" Margin="5"/>
+
+                <Button Content="Adaugă Stoc" Command="{Binding AdaugaStocCommand}" Margin="5"/>
+                <Button Content="Actualizează Stoc" Command="{Binding ActualizeazaStocCommand}" Margin="5"/>
+
+                <TextBlock Text="Vizualizare Stocuri" FontWeight="Bold" Margin="10" TextAlignment="Center"/>
+                <Button Content="Vizualizare Stocuri" Command="{Binding VizualizareStocuriCommand}" Margin="5"/>
+                <DataGrid ItemsSource="{Binding Stocuri}" AutoGenerateColumns="False" SelectedItem="{Binding StocSelectat}" Margin="5" Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Produs" Binding="{Binding Produs.Nume}"/>
+                        <DataGridTextColumn Header="Cantitate" Binding="{Binding Cantitate}"/>
+                        <DataGridTextColumn Header="Unitate de Măsură" Binding="{Binding UnitateMasura}"/>
+                        <DataGridTextColumn Header="Data Aprovizionare" Binding="{Binding DataAprovizionare}"/>
+                        <DataGridTextColumn Header="Data Expirare" Binding="{Binding DataExpirare}"/>
+                        <DataGridTextColumn Header="Preț Achiziție" Binding="{Binding PretAchizitie}"/>
+                        <DataGridTextColumn Header="Preț Vânzare" Binding="{Binding PretVanzare}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

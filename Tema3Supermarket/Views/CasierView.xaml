@@ -1,0 +1,42 @@
+﻿<Window x:Class="Tema3Supermarket.Views.CasierView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tema3Supermarket.Views"
+        mc:Ignorable="d"
+        Title="CasierView" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <TextBox Text="{Binding CriteriuCautare, UpdateSourceTrigger=PropertyChanged}" Margin="10"/>
+            <Button Content="Caută" Command="{Binding CautareProduseCommand}" Margin="10"/>
+            <DataGrid ItemsSource="{Binding Produse}" AutoGenerateColumns="False" SelectedItem="{Binding ProdusSelectat}" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nume" Binding="{Binding Nume}"/>
+                    <DataGridTextColumn Header="Cod de bare" Binding="{Binding CodBare}"/>
+                    <DataGridTextColumn Header="Categorie" Binding="{Binding Categorie.Nume}"/>
+                    <DataGridTextColumn Header="Producator" Binding="{Binding Producator.Nume}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Adaugă pe bon" Command="{Binding AdaugaProdusPeBonCommand}" Margin="10"/>
+            <DataGrid ItemsSource="{Binding ProduseBon}" AutoGenerateColumns="False" CanUserAddRows="False" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Produs" Binding="{Binding Produs.Nume}"/>
+                    <DataGridTextColumn Header="Cantitate" Binding="{Binding Cantitate}"/>
+                    <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock Margin="10">
+                <Run Text="Total de plată: "/>
+                <Run Text="{Binding TotalBon}"/>
+              </TextBlock>
+                <Button Content="Emite bon" Command="{Binding EmitereBonCommand}" Margin="10"/>
+
+            <Button Content="Încarcă Bonuri" Command="{Binding IncarcaBonuriCommand}" Margin="10"/>
+            <TextBlock Text="Număr Bonuri Emise: " Margin="10"/>
+            <TextBlock Text="{Binding NumarBonuri}" Margin="10"/>
+            <TextBlock Text="Suma Totală Încăsată: " Margin="10"/>
+            <TextBlock Text="{Binding SumaIncasata}" Margin="10"/>
+        </StackPanel>
+    </Grid>
+</Window>
